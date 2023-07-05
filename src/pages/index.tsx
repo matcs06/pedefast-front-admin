@@ -1,9 +1,6 @@
 
-import { Inter } from '@next/font/google'
-import SideBar from '../components/SideBar/SideBar'
-import { createTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles'
 
-import { MuiThemeProvider, Typography } from '@material-ui/core'
+import { createTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles'
 
 let theme = createTheme(
 )
@@ -13,6 +10,10 @@ theme = responsiveFontSizes(theme)
 
 
 export default function Home() {
+
+  if (typeof window !== 'undefined') {
+    window.location.pathname = ("/admin/app/")
+  }
 
   return (
     <>

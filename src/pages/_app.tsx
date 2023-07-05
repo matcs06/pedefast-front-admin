@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import { Roboto } from '@next/font/google'
 import SideBar from '../components/SideBar/SideBar'
 import { MyUserLoginContextWrapper } from '../context/Context'
+import { useEffect } from 'react'
 
 const roboto = Roboto({
   subsets: ['latin'],

@@ -7,7 +7,7 @@ const nextConfig = {
 
 module.exports = {
   images: {
-    domains: ['www.acasaencantada.com.br', 'localhost'],
+    domains: ['www.acasaencantada.com.br', 'localhost', 'api.pedefast.com'],
 
   }
 }
