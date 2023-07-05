@@ -88,8 +88,10 @@ export default function Store() {
          setStorePhoneNumber(response.data.phone)
          setStoreStatus(response.data.store_status)
 
+         const imagePrefixLinkDev = `http://localhost:3333/files/${usernameload}/profile/`
 
-         const imagePrefixLink = `http://localhost:3333/files/${usernameload}/profile/`
+         const imagePrefixLink = `https://api.pedefast.com/files/${usernameload}/profile/`
+
          setStoreImageUrl(imagePrefixLink + response.data.business_image_url)
 
       }

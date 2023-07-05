@@ -50,7 +50,8 @@ export default function ProductList() {
    let user_id: string;
    let username: string;
 
-   const imagePrefixLink = "http://localhost:3333/files/"
+   const imagePrefixLinkDev = "http://localhost:3333/files/"
+   const imagePrefixLink = "https://api.pedefast.com/files/"
    const [productSelected, setProductSelected] = useState<ProductType>({ description: "", id: "", image_url: "", name: "", options: [], price: "", quantity: "", createOrUpdate: "update", enabled: true })
 
    const productTest = {
