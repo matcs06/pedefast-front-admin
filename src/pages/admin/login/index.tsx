@@ -9,10 +9,11 @@ import { useUserLogin } from "../../../context/Context"
 
 interface SessionData {
    token: string,
-   name: string,
    user: {
       username: string,
-      user_id: string
+      user_id: string,
+      name: string,
+
    }
 }
 export default function Login() {
@@ -32,7 +33,7 @@ export default function Login() {
          localStorage.setItem("username", response.data.user.username)
          localStorage.setItem("user_id", response.data.user.user_id)
          localStorage.setItem("token", response.data.token)
-         localStorage.setItem("full_name", response.data.name)
+         localStorage.setItem("full_name", response.data.user.name)
 
 
          const userInfoObject = {
