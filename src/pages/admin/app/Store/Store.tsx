@@ -56,9 +56,19 @@ export default function Store() {
    };
 
    const onClickStatus = async () => {
+      let sentStatus: any = ""
+      if (storeStatus == "opened") {
+         sentStatus = "closed"
+      }
+
+      if (storeStatus == "closed") {
+         sentStatus = "opened"
+      }
+
       try {
          await instace.patch("/users/updateStoreStatus", {
-            store_status: storeStatus == "opened" ? "closed" : "opened"
+            store_status: sentStatus,
+            user_id: user_id
          }, {
             headers: {
                Authorization: "Bearer " + token,
@@ -66,7 +76,7 @@ export default function Store() {
          })
 
          const displayStatus = storeStatus == "opened" ? "Fechada" : "Aberta"
-         setStoreStatus(storeStatus == "opened" ? "closed" : "opened")
+         setStoreStatus(sentStatus)
          window.alert(`Loja ${displayStatus} com sucesso!`)
       } catch (error) {
          window.alert(`Erro ao atualizar!`)

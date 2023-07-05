@@ -8,6 +8,7 @@ export default function Logout() {
       localStorage.setItem("username", "")
       localStorage.setItem("user_id", "")
       localStorage.setItem("token", "")
+      localStorage.clear()
 
       window.location.pathname = ("/admin/login/")
 
