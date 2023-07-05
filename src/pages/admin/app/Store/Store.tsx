@@ -37,6 +37,13 @@ export default function Store() {
    let user_id: any = ""
    let username: any = ""
    let usernameload = ""
+
+   if (typeof window !== 'undefined') {
+      usernameload = String(localStorage.getItem("username"))
+      token = String(localStorage.getItem("token"))
+      user_id = String(localStorage.getItem("user_id"))
+      username = String(localStorage.getItem("username"))
+   }
    const status = [
       { key: 1, status: "aberto" },
       { key: 2, status: "fechado" }
@@ -49,7 +56,6 @@ export default function Store() {
    };
 
    const onClickStatus = async () => {
-
       try {
          await instace.patch("/users/updateStoreStatus", {
             store_status: storeStatus == "opened" ? "closed" : "opened"
@@ -75,10 +81,7 @@ export default function Store() {
    }, [storeStatus])
 
    useEffect(() => {
-      usernameload = String(localStorage.getItem("username"))
-      token = String(localStorage.getItem("token"))
-      user_id = String(localStorage.getItem("user_id"))
-      username = String(localStorage.getItem("username"))
+
 
       async function loadUserInfo() {
          const response = await instace.get<IStoreInfo>(`/users/${usernameload}`)
@@ -92,7 +95,9 @@ export default function Store() {
 
          const imagePrefixLink = `https://api.pedefast.com/files/${usernameload}/profile/`
 
-         setStoreImageUrl(imagePrefixLink + response.data.business_image_url)
+         const b_image = response.data.business_image_url || ""
+
+         setStoreImageUrl(imagePrefixLink + b_image)
 
       }
 
@@ -118,7 +123,6 @@ export default function Store() {
          }
          images[0] = imagesdata
       }
-
 
       try {
          formData.append("user_id", user_id)
