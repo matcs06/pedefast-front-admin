@@ -36,6 +36,7 @@ export default function Login() {
          localStorage.setItem("full_name", response.data.user.name)
 
 
+
          const userInfoObject = {
             username: response.data.user.username,
             user_id: response.data.user.user_id,
