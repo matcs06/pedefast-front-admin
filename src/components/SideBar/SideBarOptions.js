@@ -4,6 +4,7 @@ import CreateProduct from "../../pages/admin/app/Product/CreateProduct/CreatePro
 import Delivery from "../../pages/admin/app/Delivery/Delivery"
 import Store from "../../pages/admin/app/Store/Store"
 import Logout from "../../pages/admin/app/logout"
+import CustomerPage from "../../pages/admin/app/CustomerPage"
 
 import { IoStorefrontSharp } from "react-icons/io5"
 import { GrProductHunt } from "react-icons/gr"
@@ -38,7 +39,7 @@ export const sideBarOptions = [
    {
       title: "Link do cliente",
       icon: <BiLinkAlt size={25} />,
-      component: <div>Link do cliente</div>
+      component: <CustomerPage />
    },
    {
       title: "Sair",
