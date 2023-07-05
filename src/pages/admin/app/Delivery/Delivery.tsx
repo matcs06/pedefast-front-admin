@@ -29,11 +29,13 @@ export default function Delivery() {
    const [showDropDown, setShowDropDown] = useState(false)
    const [deactivateDelivery, setDeactiveDelivery] = useState(false)
 
-
+   let token: any = ""
+   let user_id: any = ""
    //const username = String(localStorage.getItem("username"))
-   const token = String(localStorage.getItem("token"))
-   const user_id = String(localStorage.getItem("user_id"))
-
+   if (typeof window !== 'undefined') {
+      token = String(localStorage.getItem("token"))
+      user_id = String(localStorage.getItem("user_id"))
+   }
    const discountConditions = [
       { nome: "Valor do pedido", tipo: "maior ou igual" },
       { nome: "Quantidade de itens", tipo: "maior ou igual" },

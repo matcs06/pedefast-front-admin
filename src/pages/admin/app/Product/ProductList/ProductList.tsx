@@ -1,4 +1,3 @@
-import { productList } from "./Products"
 import styles from "./ProductList.module.scss"
 import Image from "next/image"
 import { useEffect, useState } from "react"

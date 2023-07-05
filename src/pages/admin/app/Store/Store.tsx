@@ -33,9 +33,9 @@ export default function Store() {
    const [storeStatus, setStoreStatus] = useState("")
 
 
-   const token = String(localStorage.getItem("token"))
-   const user_id = String(localStorage.getItem("user_id"))
-   const username = String(localStorage.getItem("username"))
+   let token: any = ""
+   let user_id: any = ""
+   let username: any = ""
    let usernameload = ""
    const status = [
       { key: 1, status: "aberto" },
@@ -76,6 +76,9 @@ export default function Store() {
 
    useEffect(() => {
       usernameload = String(localStorage.getItem("username"))
+      token = String(localStorage.getItem("token"))
+      user_id = String(localStorage.getItem("user_id"))
+      username = String(localStorage.getItem("username"))
 
       async function loadUserInfo() {
          const response = await instace.get<IStoreInfo>(`/users/${usernameload}`)

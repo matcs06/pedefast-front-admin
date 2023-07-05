@@ -80,10 +80,14 @@ export default function CreateProduct({ ...props }: ProductType) {
 
    const [options, setOptions] = useState<CreatedOptionType[]>(productOptionsDefaultValue) /* all created options */
 
-
-   const username = String(localStorage.getItem("username"))
-   const token = String(localStorage.getItem("token"))
-   const user_id = String(localStorage.getItem("user_id"))
+   let username: any = ""
+   let token: any = ""
+   let user_id: any = ""
+   if (typeof window !== 'undefined') {
+      username = String(localStorage.getItem("username"))
+      token = String(localStorage.getItem("token"))
+      user_id = String(localStorage.getItem("user_id"))
+   }
 
    const imagePrefixLink = "http://localhost:3333/files/"
 

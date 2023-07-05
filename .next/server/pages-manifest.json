@@ -2,5 +2,15 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/admin/login": "pages/admin/login.js"
+  "/admin/app/Delivery/Delivery": "pages/admin/app/Delivery/Delivery.html",
+  "/admin/app/Product/CreateProduct/CreateProduct": "pages/admin/app/Product/CreateProduct/CreateProduct.html",
+  "/admin/app/Product/CreateProduct/Options": "pages/admin/app/Product/CreateProduct/Options.html",
+  "/admin/app/Product/ProductList/ProductList": "pages/admin/app/Product/ProductList/ProductList.html",
+  "/admin/app/Store/Store": "pages/admin/app/Store/Store.html",
+  "/admin/app": "pages/admin/app.html",
+  "/admin/app/logout": "pages/admin/app/logout.html",
+  "/admin/login": "pages/admin/login.html",
+  "/": "pages/index.html",
+  "/admin/signin": "pages/admin/signin.html",
+  "/404": "pages/404.html"
 }

@@ -1,10 +1,10 @@
 import styles from "./Input.module.scss";
 
-export default function Input({ setFieldValue, ...props }) {
+export default function Input({ ...props }) {
 
    const handleSet = (event: any) => {
       event?.preventDefault()
-      setFieldValue(event?.target.value)
+      props.setFieldValue(event?.target.value)
    }
 
 
