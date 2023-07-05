@@ -9,6 +9,7 @@ import { useUserLogin } from "../../../context/Context"
 
 interface SessionData {
    token: string,
+   name: string,
    user: {
       username: string,
       user_id: string
@@ -31,6 +32,8 @@ export default function Login() {
          localStorage.setItem("username", response.data.user.username)
          localStorage.setItem("user_id", response.data.user.user_id)
          localStorage.setItem("token", response.data.token)
+         localStorage.setItem("full_name", response.data.name)
+
 
          const userInfoObject = {
             username: response.data.user.username,

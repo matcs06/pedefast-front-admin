@@ -7,6 +7,11 @@ export default function SideBar({ defaultComponent }: any) {
 
 	const [togleBar, setTogleBar] = useState(false)
 	const [renderedComponent, setRenderedComponent] = useState(defaultComponent)
+	let full_name: any = ""
+	if (typeof window !== 'undefined') {
+
+		full_name = String(localStorage.getItem("full_name"))
+	}
 
 	function handleClickTogle() {
 
@@ -34,7 +39,7 @@ export default function SideBar({ defaultComponent }: any) {
 
 
 				<div className={styles.header}>
-					<p>Olá, Mateus!</p>
+					<p>Olá, {full_name}!</p>
 					<div className={styles.togle} onClick={handleClickTogle}>
 						<IoIosArrowDropleft size={40} className={styles.togleIcon} />
 					</div>
