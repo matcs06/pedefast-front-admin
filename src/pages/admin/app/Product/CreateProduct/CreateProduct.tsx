@@ -143,7 +143,6 @@ export default function CreateProduct({ ...props }: ProductType) {
             await instace.post("/products", formData, {
                headers: {
                   "Content-Type": "multipart/form-data",
-                  "Access-Control-Allow-Origin": "*",
                   Authorization: "Bearer " + token,
                },
             });
