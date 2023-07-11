@@ -116,12 +116,25 @@ export default function CreateProduct({ ...props }: ProductType) {
                Authorization: "Bearer " + token,
             },
          })
-         window.alert(`Produto removido com sucesso`);
+
+         const newToast: IToastList = {
+            id: String(toastList.length + 1),
+            backgroundCollor: "#5cb85c",
+            title: "Sucesso",
+            description: `Produto removido com sucesso`
+         }
+
+         setToastList([...toastList, newToast])
       } catch (error) {
-         window.alert(`erro ao remover produto`);
+         const newToast: IToastList = {
+            id: String(toastList.length + 1),
+            backgroundCollor: "#d9534f",
+            title: "Erro",
+            description: `Erro ao criar remover produto`
+         }
+
+         setToastList([...toastList, newToast])
       }
-
-
 
    }
 
