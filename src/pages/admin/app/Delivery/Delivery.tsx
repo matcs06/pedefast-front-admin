@@ -7,6 +7,7 @@ import Input from "../../../../components/Input/Input"
 import Button from "../../../../components/Button/Button"
 import CheckBox from "../../../../components/CheckBox/CheckBox"
 import instace from "../../../../api/hello"
+import Toast from "../../../../components/Toast/Toast"
 
 interface IDeliveryConfig {
    tax: string;
@@ -221,6 +222,8 @@ export default function Delivery() {
          <div className={styles.buttonContainer}>
             <Button handleClick={onSaveDeliverySetup}>Salvar</Button>
          </div>
+         <Toast toastList={toastList} setToast={setToastList} />
+
       </div>
    )
 }
