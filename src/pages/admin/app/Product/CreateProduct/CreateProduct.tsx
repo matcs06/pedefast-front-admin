@@ -1,12 +1,12 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Input from "../../../../../components/Input/Input"
 import styles from "./CreateProduct.module.scss"
 import Button from "../../../../../components/Button/Button"
 import Options from "./Options"
-import { MdCancel } from "react-icons/md"
 
 import ImageUploading from 'react-images-uploading';
 import instace from "../../../../../api/hello"
+import Toast from "../../../../../components/Toast/Toast"
 
 
 interface OptionsItems {
@@ -33,6 +33,7 @@ interface ProductType {
    options: CreatedOptionType[]
    createOrUpdate: "create" | "update"
    id: string;
+   setShowEditProductModal?: any
 
 
 }
@@ -40,6 +41,13 @@ interface ProductType {
 interface Images {
    data_url: string,
    file: any,
+}
+
+interface IToastList {
+   id: string;
+   backgroundCollor: string;
+   title: string;
+   description: string;
 }
 
 type openedFromType = "new" | "existent"
@@ -77,6 +85,9 @@ export default function CreateProduct({ ...props }: ProductType) {
 
    const [showModal, setShowModal] = useState(false)
    const [openedFrom, setOpenedFrom] = useState<openedFromType>("new")
+
+
+   const [toastList, setToastList] = useState<IToastList[]>([])
 
    const [options, setOptions] = useState<CreatedOptionType[]>(productOptionsDefaultValue) /* all created options */
 
@@ -122,7 +133,7 @@ export default function CreateProduct({ ...props }: ProductType) {
       if (images[0] == null) {
          const imagesdata = {
             file: "fake",
-            data_url: "fake",
+            data_url: productImageUrl,
          }
          images[0] = imagesdata
       }
@@ -146,11 +157,26 @@ export default function CreateProduct({ ...props }: ProductType) {
                   Authorization: "Bearer " + token,
                },
             });
-            window.alert(`Produto ${productName} criado com sucesso`);
+
+            const newToast: IToastList = {
+               id: String(toastList.length + 1),
+               backgroundCollor: "#5cb85c",
+               title: "Sucesso",
+               description: `Produto ${productName} criado com sucesso`
+            }
+
+            setToastList([...toastList, newToast])
+
          } catch (error) {
-            window.alert(
-               "erro ao criar novo produto: Verifique se está logado ou produtos com o mesmo nome e tente novamente"
-            );
+
+            const newToast: IToastList = {
+               id: String(toastList.length + 1),
+               backgroundCollor: "#d9534f",
+               title: "Erro",
+               description: `erro ao criar novo produto`
+            }
+
+            setToastList([...toastList, newToast])
 
          }
       } else {
@@ -177,13 +203,25 @@ export default function CreateProduct({ ...props }: ProductType) {
                },
             });
 
-            window.alert(`Produto ${productName} atualizado com sucesso`);
+            const newToast: IToastList = {
+               id: String(toastList.length + 1),
+               backgroundCollor: "#5cb85c",
+               title: "Sucesso",
+               description: `Produto ${productName} atualizado com sucesso`
+            }
+
+            setToastList([...toastList, newToast])
+
 
          } catch (error) {
-            window.alert(
+            const newToast: IToastList = {
+               id: String(toastList.length + 1),
+               backgroundCollor: "#d9534f",
+               title: "Erro",
+               description: `Erro ao atualizar produto`
+            }
 
-               "erro ao criar novo produto: Verifique se está logado ou produtos com o mesmo nome e tente novamente"
-            );
+            setToastList([...toastList, newToast])
 
          }
 
@@ -216,12 +254,26 @@ export default function CreateProduct({ ...props }: ProductType) {
 
          const productStatus = producEnabledCurrent == true ? "Desabilitado" : "Habilitado"
          setProductStatus(!producEnabledCurrent)
-         window.alert(`Produto ${productStatus} com sucesso!`)
+
+         const newToast: IToastList = {
+            id: String(toastList.length + 1),
+            backgroundCollor: "#5cb85c",
+            title: "Sucesso",
+            description: `Produto ${productStatus} com sucesso!`
+         }
+
+         setToastList([...toastList, newToast])
+
       } catch (error) {
-         window.alert(`Erro ao atualizar!`)
+         const newToast: IToastList = {
+            id: String(toastList.length + 1),
+            backgroundCollor: "#d9534f",
+            title: "Erro",
+            description: `Erro ao atualizar status do produto`
+         }
+
+         setToastList([...toastList, newToast])
       }
-
-
 
    }
 
@@ -270,7 +322,6 @@ export default function CreateProduct({ ...props }: ProductType) {
    }
  */
 
-
    return (
       <>
          <div className={styles.mainContainer}>
@@ -279,18 +330,18 @@ export default function CreateProduct({ ...props }: ProductType) {
             </div>
 
             <form action="" className={styles.inputContainer}>
-               <Input type="text" value={productName} autoComplete="off" setFieldValue={setProductName} name={"productName"} placeholder="Nome do Produto" />
-               <Input type="text" value={productDescription} setFieldValue={setProductDescription} name={"Description"} placeholder="Descrição" />
+               <Input type="text" value={productName} autoComplete="off" setValue={setProductName} name={"productName"} placeholder="Nome do Produto" />
+               <Input type="text" value={productDescription} setValue={setProductDescription} name={"Description"} placeholder="Descrição" />
 
                <div className={styles.priceAndStockContainer}>
                   <div>
                      <p>Preço:</p>
-                     <Input type="number" value={productPrice} setFieldValue={setProductPrice} name={"price"} />
+                     <Input type="number" value={productPrice} setValue={setProductPrice} name={"price"} />
                   </div>
 
                   <div>
                      <p>Estoque: </p>
-                     <Input type="number" value={productStock} setFieldValue={setProductStock} name={"stock"} />
+                     <Input type="number" value={productStock} setValue={setProductStock} name={"stock"} />
                   </div>
 
                </div>
@@ -400,6 +451,7 @@ export default function CreateProduct({ ...props }: ProductType) {
                openedFrom={openedFrom}
             />
          )}  */}
+         <Toast toastList={toastList} setToast={setToastList} />
       </>
 
    )

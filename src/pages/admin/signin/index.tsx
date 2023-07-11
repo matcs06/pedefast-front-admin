@@ -103,9 +103,9 @@ export default function SignIn() {
          </header>
          <main>
             <div className={styles.inputContainer}>
-               <Input setFieldValue={setUserFullName} type="text" placeholder={"Nome Completo"} nome={"fullname"} />
+               <Input setValue={setUserFullName} type="text" placeholder={"Nome Completo"} nome={"fullname"} />
                <div className={styles.usernameContainer}>
-                  <Input setFieldValue={setUsername} type="text" placeholder={"Nome do usuário"} nome={"username"} />
+                  <Input setValue={setUsername} type="text" placeholder={"Nome do usuário"} nome={"username"} />
 
                   {userName && (
                      <div className={styles.existsIcon}>
@@ -116,8 +116,8 @@ export default function SignIn() {
                   )}
 
                </div>
-               <Input setFieldValue={setPassword} type="password" placeholder={"Senha"} nome={"password"} />
-               <Input setFieldValue={setConfirmPassword} type="password" placeholder={"Confirmar senha"} nome={"confirmpassword"} />
+               <Input setValue={setPassword} type="password" placeholder={"Senha"} nome={"password"} />
+               <Input setValue={setConfirmPassword} type="password" placeholder={"Confirmar senha"} nome={"confirmpassword"} />
             </div>
             {checkUserExists && (
                <span style={{ color: "#ed5555", fontSize: "12px" }}>Usuário já existe, escolha outro nome!</span>

@@ -6,6 +6,7 @@ import Input from "../../../components/Input/Input"
 import Button from "../../../components/Button/Button"
 import instace from "../../../api/hello"
 import { useUserLogin } from "../../../context/Context"
+import Toast from "../../../components/Toast/Toast"
 
 interface SessionData {
    token: string,
@@ -16,11 +17,20 @@ interface SessionData {
 
    }
 }
+
+interface IToastList {
+   id: string;
+   backgroundCollor: string;
+   title: string;
+   description: string;
+}
+
 export default function Login() {
 
    const [userName, setUserName] = useState()
    const [password, setPassword] = useState()
    const [_, setUserInfo] = useUserLogin()
+   const [toastList, setToastList] = useState<IToastList[]>([])
 
    async function onLoginClick() {
 
@@ -51,7 +61,14 @@ export default function Login() {
          window.location.pathname = ("/admin/app/")
 
       } catch (error) {
-         window.alert("Erro ao fazer login, tente novamente!")
+         const newToast: IToastList = {
+            id: String(toastList.length + 1),
+            backgroundCollor: "#d9534f",
+            title: "Erro",
+            description: `Erro ao criar usuário informacoes!`
+         }
+
+         setToastList([...toastList, newToast])
       }
 
    }
@@ -64,13 +81,14 @@ export default function Login() {
          </header>
          <main>
             <div className={styles.inputContainer}>
-               <Input setFieldValue={setUserName} type="text" value={userName} placeholder={"Nome do Usuário"} nome={"username"} />
-               <Input setFieldValue={setPassword} type="password" value={password} placeholder={"Senha"} nome={"password"} />
+               <Input setValue={setUserName} type="text" value={userName} placeholder={"Nome do Usuário"} nome={"username"} />
+               <Input setValue={setPassword} type="password" value={password} placeholder={"Senha"} nome={"password"} />
             </div>
             <div className={styles.buttonContainer} onClick={onLoginClick}>
                <Button>Entrar</Button>
             </div>
          </main>
+         <Toast toastList={toastList} setToast={setToastList} />
       </div>
    )
 

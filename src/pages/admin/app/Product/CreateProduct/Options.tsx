@@ -6,6 +6,7 @@ import { MdCancel } from "react-icons/md"
 import { useState } from "react"
 import { v4 as uuid } from "uuid"
 
+
 interface OptionsItems {
    name: string;
    id: string;
@@ -109,7 +110,7 @@ export default function Options({ ...props }) {
             <MdCancel className={styles.closeWindow} color="#DC6A6A" size={30} onClick={() => props.setShowModal(false)} />
             <h3>{props.productName}</h3>
             <div className={styles.optionInfoContainer}>
-               <Input name="option" value={optionName} setFieldValue={setOptionName} placeholder="Nome da opção" />
+               <Input name="option" value={optionName} setValue={setOptionName} placeholder="Nome da opção" />
 
             </div>
             <div className={styles.AditionalOptions}>
@@ -128,7 +129,7 @@ export default function Options({ ...props }) {
 
                <div className={styles.maximumQuantity}>
                   <p>Quant. Máxima</p>
-                  <Input type="number" name="quantidade" value={optionmaximumQuantity} setFieldValue={setOptionmaximumQuantity} />
+                  <Input type="number" name="quantidade" value={optionmaximumQuantity} setValue={setOptionmaximumQuantity} />
                </div>
 
 
@@ -137,8 +138,8 @@ export default function Options({ ...props }) {
             <div className={styles.addItemContainer}>
                <h3>Adicione itens</h3>
                <form onKeyDown={(event) => event.key === "Enter" && AdditemToOption()} action="submit" className={styles.addItemInputContainer}>
-                  <Input name="item" setFieldValue={setItem} placeholder="Nome" value={item} />
-                  <Input name="value" setFieldValue={setItemValue} placeholder="valor" type="number" value={itemValue} />
+                  <Input name="item" setValue={setItem} placeholder="Nome" value={item} />
+                  <Input name="value" setValue={setItemValue} placeholder="valor" type="number" value={itemValue} />
                   <AiOutlinePlusCircle onClick={AdditemToOption} type='submit' color="#DC6A6A" cursor="pointer" size={50} />
 
                </form>

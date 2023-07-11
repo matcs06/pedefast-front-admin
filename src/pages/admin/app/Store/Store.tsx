@@ -5,6 +5,7 @@ import styles from "./Store.module.scss"
 import { HexColorPicker } from "react-colorful";
 import ImageUploading from 'react-images-uploading';
 import instace from "../../../../api/hello";
+import Toast from "../../../../components/Toast/Toast";
 
 interface IStoreInfo {
    business_name: string,
@@ -19,6 +20,12 @@ interface Images {
    file: any,
 }
 
+interface IToastList {
+   id: string;
+   backgroundCollor: string;
+   title: string;
+   description: string;
+}
 
 export default function Store() {
 
@@ -31,6 +38,8 @@ export default function Store() {
    //const [showPicker, setShowPicker] = useState(false)
    const [images, setImages] = useState<Images[]>([])
    const [storeStatus, setStoreStatus] = useState("")
+   const [toastList, setToastList] = useState<IToastList[]>([])
+
 
 
    let token: any = ""
@@ -77,9 +86,24 @@ export default function Store() {
 
          const displayStatus = storeStatus == "opened" ? "Fechada" : "Aberta"
          setStoreStatus(sentStatus)
-         window.alert(`Loja ${displayStatus} com sucesso!`)
+
+         const newToast: IToastList = {
+            id: String(toastList.length + 1),
+            backgroundCollor: "#5cb85c",
+            title: "Sucesso",
+            description: `Loja ${displayStatus} com sucesso!`
+         }
+
+         setToastList([...toastList, newToast])
       } catch (error) {
-         window.alert(`Erro ao atualizar!`)
+         const newToast: IToastList = {
+            id: String(toastList.length + 1),
+            backgroundCollor: "#d9534f",
+            title: "Erro",
+            description: `Error ao atualizar status da loja!`
+         }
+
+         setToastList([...toastList, newToast])
       }
 
 
@@ -129,7 +153,7 @@ export default function Store() {
       if (images[0] == null) {
          const imagesdata = {
             file: "fake",
-            data_url: "fake",
+            data_url: storeImageUrl,
          }
          images[0] = imagesdata
       }
@@ -151,9 +175,24 @@ export default function Store() {
             },
          })
 
-         window.alert("Configuracoes salvas com sucesso")
+         const newToast: IToastList = {
+            id: String(toastList.length + 1),
+            backgroundCollor: "#5cb85c",
+            title: "Sucesso",
+            description: `Configuracoes salvas com sucesso!`
+         }
+
+         setToastList([...toastList, newToast])
+
       } catch (error) {
-         window.alert("Erro ao atualizar informacoes")
+         const newToast: IToastList = {
+            id: String(toastList.length + 1),
+            backgroundCollor: "#d9534f",
+            title: "Erro",
+            description: `Erro ao atualizar informacoes!`
+         }
+
+         setToastList([...toastList, newToast])
       }
 
       //Reseting null to image state if it was assigned value to prevent error
@@ -162,17 +201,15 @@ export default function Store() {
             images[0] == null
          }
       }
-
-
    }
 
    return (
       <div className={styles.mainContainer}>
          <h3>Configurar Loja</h3>
          <div className={styles.inputContainer}>
-            <Input setFieldValue={setStoreName} placeholder={"Nome da Loja"} name={"store name"} value={storeName} />
-            <Input setFieldValue={setSoreAddress} placeholder={"Endereço"} name={"store address"} value={storeAddress} />
-            <Input setFieldValue={setStorePhoneNumber} placeholder={"Telefone"} name={"store phone"} value={storePhoneNumber} />
+            <Input setValue={setStoreName} placeholder={"Nome da Loja"} name={"store name"} value={storeName} />
+            <Input setValue={setSoreAddress} placeholder={"Endereço"} name={"store address"} value={storeAddress} />
+            <Input setValue={setStorePhoneNumber} placeholder={"Telefone"} name={"store phone"} value={storePhoneNumber} />
 
             {storeStatus == "opened" ? (
                <div onClick={onClickStatus} style={{ background: "#43c14b" }} className={styles.storeStatusStyle}>
@@ -243,6 +280,8 @@ export default function Store() {
 
             <Button handleClick={handleSaveBusinesInfo}>Salvar</Button>
          </div>
+         <Toast toastList={toastList} setToast={setToastList} />
+
       </div>
    )
 } 

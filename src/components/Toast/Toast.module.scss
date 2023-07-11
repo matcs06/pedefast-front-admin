@@ -1,0 +1,55 @@
+.toastContainer {
+   position: fixed;
+   height: auto;
+   width: 45%;
+   width: 320px;
+   right: 1rem;
+   top: 1rem;
+   z-index: 10;
+}
+
+.toast {
+   position: relative;
+   background: #000;
+   height: 75px;
+   max-width: 320px;
+   border-radius: 4px;
+   box-shadow: 0 10px 10px 0 #cfcfcf;
+   margin-bottom: 5px;
+   padding: 10px;
+   display: flex;
+   align-items: flex-start;
+   flex-direction: column;
+   justify-content: flex-start;
+   animation: tooltipanimation 0.7s;
+
+
+   .title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 4px;
+   }
+
+   .descriptionAndExitContainer {
+      width: 95%;
+      display: flex;
+      justify-content: space-between;
+
+      .description {
+         font-size: 14px;
+         font-weight: lighter;
+      }
+   }
+
+
+}
+
+@keyframes tooltipanimation {
+   from {
+      transform: translateX(100%);
+   }
+
+   to {
+      transform: translateX(0);
+   }
+}

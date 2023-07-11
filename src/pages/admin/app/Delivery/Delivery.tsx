@@ -17,6 +17,13 @@ interface IDeliveryConfig {
    deactivate_delivery: boolean
 }
 
+interface IToastList {
+   id: string;
+   backgroundCollor: string;
+   title: string;
+   description: string;
+}
+
 export default function Delivery() {
    const [deliveryTax, setDeliveryTax] = useState("")
    const [discountCheckBox, setDiscountCheckBox] = useState(false)
@@ -28,6 +35,8 @@ export default function Delivery() {
 
    const [showDropDown, setShowDropDown] = useState(false)
    const [deactivateDelivery, setDeactiveDelivery] = useState(false)
+   const [toastList, setToastList] = useState<IToastList[]>([])
+
 
    let token: any = ""
    let user_id: any = ""
@@ -79,9 +88,25 @@ export default function Delivery() {
 
          })
 
-         window.alert("Configuracao de entrega salva com sucesso")
+         const newToast: IToastList = {
+            id: String(toastList.length + 1),
+            backgroundCollor: "#5cb85c",
+            title: "Sucesso",
+            description: `Configuracao de entrega salva com sucesso!`
+         }
+
+         setToastList([...toastList, newToast])
+
       } catch (error) {
-         window.alert("Erro ao salvar configuracao")
+
+         const newToast: IToastList = {
+            id: String(toastList.length + 1),
+            backgroundCollor: "#d9534f",
+            title: "Erro",
+            description: `Erro ao salvar configuracao!`
+         }
+
+         setToastList([...toastList, newToast])
       }
 
    }
@@ -108,7 +133,21 @@ export default function Delivery() {
 
       }
 
-      loadConfig()
+      try {
+         loadConfig()
+      } catch (error) {
+
+         const newToast: IToastList = {
+            id: String(toastList.length + 1),
+            backgroundCollor: "#d9534f",
+            title: "Erro",
+            description: `Erro ao carregar informarcoes!`
+         }
+
+         setToastList([...toastList, newToast])
+
+      }
+
 
       return () => {
          setDiscountCheckBox(false)
@@ -135,7 +174,7 @@ export default function Delivery() {
             <>
                <div className={styles.deliveryTaxContainer}>
                   <p>Taxa de Entrega: </p>
-                  <Input value={deliveryTax} type={"number"} setFieldValue={setDeliveryTax} /> R$
+                  <Input value={deliveryTax} type={"number"} setValue={setDeliveryTax} /> R$
                </div>
 
                <div className={styles.diccountToggle}>
@@ -147,7 +186,7 @@ export default function Delivery() {
                   <div className={styles.condition}>
                      <ul className={styles.dropDownContainer} >
                         <div className={styles.inputArrowContainer}>
-                           <Input value={`${selectedCondition + "-" + conditionType}`} name={"discount"} type={"text"} placeholder={"Condição"} readOnly={"readonly"} setFieldValue={() => { }} />
+                           <Input value={`${selectedCondition + "-" + conditionType}`} name={"discount"} type={"text"} placeholder={"Condição"} readOnly={"readonly"} setValue={() => { }} />
                            <BsFillArrowDownCircleFill size={20} className={styles.arrow} onClick={() => { handleShowDropDown("", "") }} />
                         </div>
 
@@ -161,12 +200,12 @@ export default function Delivery() {
 
                         <div className={styles.parameterContainer}>
                            <p>Parametro: </p>
-                           <Input value={parameter} setFieldValue={setParameter} name={"parameter"} />
+                           <Input value={parameter} setValue={setParameter} name={"parameter"} />
                         </div>
 
                         <div className={styles.parameterContainer}>
                            <p>Porcentagem: </p>
-                           <Input value={percentage} setFieldValue={setPercentage} name={"parameter"} type={"number"} />
+                           <Input value={percentage} setValue={setPercentage} name={"parameter"} type={"number"} />
                         </div>
                         <span>Se o {selectedCondition} for {conditionType} a {parameter} então descontará {percentage}% da taxa de entrega</span>
 

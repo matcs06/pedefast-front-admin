@@ -6,6 +6,7 @@ import { MdCancel } from "react-icons/md"
 import instace from "../../../../../api/hello";
 import { BRLReais } from "../../../../../utils/CurrencyFormat"
 import { useUserLogin } from "../../../../../context/Context";
+import Toast from "../../../../../components/Toast/Toast";
 
 
 interface OptionsItems {
@@ -34,6 +35,13 @@ interface ProductType {
    createOrUpdate?: "create" | "update"
 }
 
+interface IToastList {
+   id: string;
+   backgroundCollor: string;
+   title: string;
+   description: string;
+}
+
 export default function ProductList() {
 
    const [userInfo, setUserInfo] = useUserLogin()
@@ -46,6 +54,9 @@ export default function ProductList() {
 
    const fielteredProducts = producListApi.filter((item: ProductType) => item.name.toLocaleLowerCase().includes(inputedValue.toLocaleLowerCase()))
    const [showEditProductModal, setShowEditProductModal] = useState(false)
+
+   const [toastList, setToastList] = useState<IToastList[]>([])
+
 
    let user_id: string;
    let username: string;
@@ -89,7 +100,14 @@ export default function ProductList() {
             const response = await instace.get(`products/?user_id=${user_id}`)
             setProductListApi(response.data)
          } catch (error) {
-            window.alert("erro ao listar produtos")
+            const newToast: IToastList = {
+               id: String(toastList.length + 1),
+               backgroundCollor: "#d9534f",
+               title: "Erro",
+               description: `erro ao listar produtos`
+            }
+
+            setToastList([...toastList, newToast])
          }
       }
 
@@ -152,11 +170,12 @@ export default function ProductList() {
                   enabled={productSelected.enabled}
                   id={productSelected.id}
                   key={productSelected.name}
+                  setShowEditProductModal={setShowEditProductModal}
                />
 
             </div>
          }
-
+         <Toast toastList={toastList} setToast={setToastList} />
       </div>
    )
 }
