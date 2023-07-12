@@ -19,7 +19,7 @@ export default function Toast({ setToast, toastList }: IToastProps) {
    const onDeleteToast = useCallback((id: string) => {
       setToast(toastList.filter((toast: IToastList) => toast.id !== id))
 
-   }, [])
+   }, [toastList, setToast])
 
 
    useEffect(() => {
@@ -28,7 +28,11 @@ export default function Toast({ setToast, toastList }: IToastProps) {
             onDeleteToast(toastList[0].id)
          }
       }, 3000)
-   }, [toastList])
+
+      return () => {
+         clearInterval(interval)
+      }
+   }, [toastList, onDeleteToast])
 
    return (
       <div className={styles.toastContainer}>
