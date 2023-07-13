@@ -338,9 +338,12 @@ export default function CreateProduct({ ...props }: ProductType) {
    return (
       <>
          <div className={styles.mainContainer}>
-            {props.createOrUpdate !== "update" && (
+            {props.createOrUpdate !== "update" ? (
                <div className={styles.headerContainer}>
                   <header>Adicione um novo produto</header>
+               </div>
+            ) : (
+               <div className={styles.headerSpace}>
                </div>
             )}
 
