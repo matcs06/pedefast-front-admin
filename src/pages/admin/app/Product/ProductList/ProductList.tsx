@@ -137,7 +137,7 @@ export default function ProductList() {
       <div className={styles.productMenu}>
 
          <form action="">
-            <input type="text" placeholder="Busque por um produto" onChange={handleSerach} />
+            <input className={styles.search} type="text" placeholder="Busque por um produto" onChange={handleSerach} />
          </form>
          <main className={styles.producsList} >
 
