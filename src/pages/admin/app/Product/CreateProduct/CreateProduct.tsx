@@ -338,9 +338,12 @@ export default function CreateProduct({ ...props }: ProductType) {
    return (
       <>
          <div className={styles.mainContainer}>
-            <div className={styles.headerContainer}>
-               <header>Adicione um novo produto</header>
-            </div>
+            {props.createOrUpdate !== "update" && (
+               <div className={styles.headerContainer}>
+                  <header>Adicione um novo produto</header>
+               </div>
+            )}
+
 
             <form action="" className={styles.inputContainer}>
                <Input type="text" value={productName} autoComplete="off" setValue={setProductName} name={"productName"} placeholder="Nome do Produto" />
