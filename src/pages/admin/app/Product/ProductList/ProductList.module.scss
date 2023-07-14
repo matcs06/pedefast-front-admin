@@ -36,7 +36,6 @@
    justify-content: center;
    align-items: center;
    width: 100%;
-   gap: 1%;
    max-height: 80vh;
    overflow-y: scroll;
    margin-top: 5%;
@@ -50,16 +49,15 @@
    flex-direction: column;
    background-color: var(--cinza-escuro);
    color: var(--laranja-main);
-   height: 280px;
-   width: 300px;
-   min-height: 280px;
+   height: 300px;
+   width: 250px;
+   min-height: 300px;
    margin-bottom: 5%;
    justify-content: center;
    cursor: pointer;
    border-radius: 8px;
    transition: 0.2s;
-
-
+   padding-top: 10px;
 
    &:hover {
       background-color: rgb(196, 195, 195);
@@ -72,25 +70,21 @@
    }
 
    .productTile {
-      font-size: 1.1rem;
-      margin-top: 2%;
+      font-size: 1rem;
+      margin-top: 3%;
+      font-weight: bold;
+      margin-bottom: 1%;
    }
 
    .imageContainer {
       display: flex;
       justify-content: center;
+      align-items: flex-start;
    }
 
    .productImage {
       border-radius: 8px;
    }
-
-   .productQuantity {
-      margin-right: 35%;
-   }
-
-
-
 
 }
 

@@ -145,11 +145,11 @@ export default function ProductList() {
                return (
                   <div style={{ background: product.enabled ? "#e4dcdc" : "#434343" }} key={index} className={styles.productCard} onClick={() => handleClickProdutc(product.id)}>
                      <div className={styles.imageContainer}>
-                        <Image className={styles.productImage} width={270} height={200} src={imagePrefixLink + userInfo.username + "/" + product.image_url} alt="imagem" />
+                        <Image className={styles.productImage} width={230} height={230} src={imagePrefixLink + userInfo.username + "/" + product.image_url} alt="imagem" />
                      </div>
                      <p className={styles.productTile}>{product.name}</p>
-                     <div style={{ display: "flex", justifyContent: "flex-start" }}>
-                        <p className={styles.productQuantity}>Estoque: {product.quantity} </p>
+                     <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px", width: "100%", paddingRight: "10px", fontSize: "0.9rem" }}>
+                        <p>Estoque: {product.quantity} </p>
                         <p>{BRLReais.format(Number(product.price))}</p>
                      </div>
                   </div>
