@@ -4,6 +4,7 @@ import { Roboto } from '@next/font/google'
 import SideBar from '../components/SideBar/SideBar'
 import { MyUserLoginContextWrapper } from '../context/Context'
 import { useEffect } from 'react'
+import Head from 'next/head'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -14,6 +15,9 @@ const roboto = Roboto({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <MyUserLoginContextWrapper>
+      <Head>
+        <title>Pede Fast</title>
+      </Head>
       <main className={roboto.className}>
         <Component {...pageProps} />
       </main>
