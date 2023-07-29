@@ -175,7 +175,7 @@ export default function Delivery() {
             <>
                <div className={styles.deliveryTaxContainer}>
                   <p>Taxa de Entrega: </p>
-                  <Input value={deliveryTax} type={"number"} setValue={setDeliveryTax} /> R$
+                  <Input value={deliveryTax} type={"number"} setvalue={setDeliveryTax} /> R$
                </div>
 
                <div className={styles.diccountToggle}>
@@ -187,7 +187,7 @@ export default function Delivery() {
                   <div className={styles.condition}>
                      <ul className={styles.dropDownContainer} >
                         <div className={styles.inputArrowContainer}>
-                           <Input value={`${selectedCondition + "-" + conditionType}`} name={"discount"} type={"text"} placeholder={"Condição"} readOnly={"readonly"} setValue={() => { }} />
+                           <Input value={`${selectedCondition + "-" + conditionType}`} name={"discount"} type={"text"} placeholder={"Condição"} readOnly={"readonly"} setvalue={() => { }} />
                            <BsFillArrowDownCircleFill size={20} className={styles.arrow} onClick={() => { handleShowDropDown("", "") }} />
                         </div>
 
@@ -201,12 +201,12 @@ export default function Delivery() {
 
                         <div className={styles.parameterContainer}>
                            <p>Parametro: </p>
-                           <Input value={parameter} setValue={setParameter} name={"parameter"} />
+                           <Input value={parameter} setvalue={setParameter} name={"parameter"} />
                         </div>
 
                         <div className={styles.parameterContainer}>
                            <p>Porcentagem: </p>
-                           <Input value={percentage} setValue={setPercentage} name={"parameter"} type={"number"} />
+                           <Input value={percentage} setvalue={setPercentage} name={"parameter"} type={"number"} />
                         </div>
                         <span>Se o {selectedCondition} for {conditionType} a {parameter} então descontará {percentage}% da taxa de entrega</span>
 

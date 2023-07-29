@@ -349,18 +349,18 @@ export default function CreateProduct({ ...props }: ProductType) {
 
 
             <form action="" className={styles.inputContainer}>
-               <Input type="text" value={productName} autoComplete="off" setValue={setProductName} name={"productName"} placeholder="Nome do Produto" />
-               <Input type="text" value={productDescription} setValue={setProductDescription} name={"Description"} placeholder="Descrição" />
+               <Input type="text" value={productName} autoComplete="off" setvalue={setProductName} name={"productName"} placeholder="Nome do Produto" />
+               <Input type="text" value={productDescription} setvalue={setProductDescription} name={"Description"} placeholder="Descrição" />
 
                <div className={styles.priceAndStockContainer}>
                   <div>
                      <p>Preço:</p>
-                     <Input type="number" value={productPrice} setValue={setProductPrice} name={"price"} />
+                     <Input type="number" value={productPrice} setvalue={setProductPrice} name={"price"} />
                   </div>
 
                   <div>
                      <p>Estoque: </p>
-                     <Input type="number" value={productStock} setValue={setProductStock} name={"stock"} />
+                     <Input type="number" value={productStock} setvalue={setProductStock} name={"stock"} />
                   </div>
 
                </div>

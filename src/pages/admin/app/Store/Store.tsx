@@ -207,9 +207,9 @@ export default function Store() {
       <div className={styles.mainContainer}>
          <h3>Configurar Loja</h3>
          <div className={styles.inputContainer}>
-            <Input setValue={setStoreName} placeholder={"Nome da Loja"} name={"store name"} value={storeName} />
-            <Input setValue={setSoreAddress} placeholder={"Endereço"} name={"store address"} value={storeAddress} />
-            <Input setValue={setStorePhoneNumber} placeholder={"Telefone"} name={"store phone"} value={storePhoneNumber} />
+            <Input setvalue={setStoreName} placeholder={"Nome da Loja"} name={"store name"} value={storeName} />
+            <Input setvalue={setSoreAddress} placeholder={"Endereço"} name={"store address"} value={storeAddress} />
+            <Input setvalue={setStorePhoneNumber} placeholder={"Telefone"} name={"store phone"} value={storePhoneNumber} />
 
             {storeStatus == "opened" ? (
                <div onClick={onClickStatus} style={{ background: "#43c14b" }} className={styles.storeStatusStyle}>

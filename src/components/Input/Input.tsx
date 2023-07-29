@@ -4,7 +4,7 @@ export default function Input({ ...props }) {
 
    const handleSet = (event: any) => {
       event?.preventDefault()
-      props.setValue(event?.target.value)
+      props.setvalue(event?.target.value)
    }
 
 

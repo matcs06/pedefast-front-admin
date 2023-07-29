@@ -118,7 +118,7 @@ export default function ProductList() {
       }
    }, [userInfo, showEditProductModal])
 
-   function handleSerach(event: any) {
+   function handleSearch(event: any) {
       event?.preventDefault()
       setImputedValue(event.target.value)
    }
@@ -137,7 +137,7 @@ export default function ProductList() {
       <div className={styles.productMenu}>
 
          <form action="">
-            <input className={styles.search} type="text" placeholder="Busque por um produto" onChange={handleSerach} />
+            <input className={styles.search} type="text" placeholder="Busque por um produto" onChange={handleSearch} />
          </form>
          <main className={styles.producsList} >
 

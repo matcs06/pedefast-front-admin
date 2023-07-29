@@ -110,7 +110,7 @@ export default function Options({ ...props }) {
             <MdCancel className={styles.closeWindow} color="#DC6A6A" size={30} onClick={() => props.setShowModal(false)} />
             <h3>{props.productName}</h3>
             <div className={styles.optionInfoContainer}>
-               <Input name="option" value={optionName} setValue={setOptionName} placeholder="Nome da opção" />
+               <Input name="option" value={optionName} setvalue={setOptionName} placeholder="Nome da opção" />
 
             </div>
             <div className={styles.AditionalOptions}>
@@ -129,7 +129,7 @@ export default function Options({ ...props }) {
 
                <div className={styles.maximumQuantity}>
                   <p>Quant. Máxima</p>
-                  <Input type="number" name="quantidade" value={optionmaximumQuantity} setValue={setOptionmaximumQuantity} />
+                  <Input type="number" name="quantidade" value={optionmaximumQuantity} setvalue={setOptionmaximumQuantity} />
                </div>
 
 
@@ -138,8 +138,8 @@ export default function Options({ ...props }) {
             <div className={styles.addItemContainer}>
                <h3>Adicione itens</h3>
                <form onKeyDown={(event) => event.key === "Enter" && AdditemToOption()} action="submit" className={styles.addItemInputContainer}>
-                  <Input name="item" setValue={setItem} placeholder="Nome" value={item} />
-                  <Input name="value" setValue={setItemValue} placeholder="valor" type="number" value={itemValue} />
+                  <Input name="item" setvalue={setItem} placeholder="Nome" value={item} />
+                  <Input name="value" setvalue={setItemValue} placeholder="valor" type="number" value={itemValue} />
                   <AiOutlinePlusCircle onClick={AdditemToOption} type='submit' color="#DC6A6A" cursor="pointer" size={50} />
 
                </form>

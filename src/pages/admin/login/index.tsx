@@ -81,8 +81,8 @@ export default function Login() {
          </header>
          <main>
             <div className={styles.inputContainer}>
-               <Input setValue={setUserName} type="text" value={userName} placeholder={"Nome do Usuário"} nome={"username"} />
-               <Input setValue={setPassword} type="password" value={password} placeholder={"Senha"} nome={"password"} />
+               <Input setvalue={setUserName} type="text" value={userName} placeholder={"Nome do Usuário"} nome={"username"} />
+               <Input setvalue={setPassword} type="password" value={password} placeholder={"Senha"} nome={"password"} />
             </div>
             <div className={styles.buttonContainer} onClick={onLoginClick}>
                <Button>Entrar</Button>
