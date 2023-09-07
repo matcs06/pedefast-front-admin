@@ -5,6 +5,7 @@ import Delivery from "../../pages/admin/app/Delivery/Delivery"
 import Store from "../../pages/admin/app/Store/Store"
 import Logout from "../../pages/admin/app/logout"
 import CustomerPage from "../../pages/admin/app/CustomerPage"
+import Orders from "../../pages/admin/app/Orders/Orders"
 
 import { IoStorefrontSharp } from "react-icons/io5"
 import { GrProductHunt } from "react-icons/gr"
@@ -12,6 +13,7 @@ import { IoIosAddCircle } from "react-icons/io"
 import { MdDeliveryDining } from "react-icons/md"
 import { BiLinkAlt } from "react-icons/bi"
 import { BiExit } from "react-icons/bi"
+import { BsJournalBookmarkFill } from "react-icons/bs"
 export const sideBarOptions = [
 
 
@@ -31,10 +33,16 @@ export const sideBarOptions = [
       component: <Store />,
    },
    {
+      title: "Pedidos",
+      icon: <BsJournalBookmarkFill size={25} />,
+      component: <Orders />
+   },
+   {
       title: "Entrega",
       icon: <MdDeliveryDining size={25} />,
       component: <Delivery />,
    },
+
 
    {
       title: "Link do cliente",
@@ -46,6 +54,8 @@ export const sideBarOptions = [
       icon: <BiExit size={25} />,
       component: <Logout />
    }
+
+
 
 ]
 
