@@ -7,6 +7,9 @@ export default function Input({ ...props }) {
       props?.setvalue(event?.target.value)
    }
 
+   if (props.setvalue == undefined || props.setvalue == null) {
+      props.setvalue = ""
+   }
 
    return (
       <div className={styles.inputContainer}>
