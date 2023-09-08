@@ -2,6 +2,9 @@ import styles from "./Orders.module.scss"
 import instace from "../../../../api/hello"
 import { useEffect, useState } from "react"
 
+import { AiFillDelete } from "react-icons/ai"
+import Toast from "../../../../components/Toast/Toast";
+
 interface IOrderInfo {
    customer_name: string;
    customer_address: string;
@@ -11,12 +14,20 @@ interface IOrderInfo {
    product: string;
 }
 
+interface IToastList {
+   id: string;
+   backgroundCollor: string;
+   title: string;
+   description: string;
+}
+
 export default function Orders() {
 
    const [orders, setOrders] = useState<IOrderInfo[]>([])
    const [selectedOrderDetails, setSelectedOrderDetails] = useState("")
 
-   console.log("entrou")
+   const [toastList, setToastList] = useState<IToastList[]>([])
+
    let token: any = ""
    if (typeof window !== 'undefined') {
       token = String(localStorage.getItem("token"))
@@ -32,11 +43,44 @@ export default function Orders() {
    }
 
 
+   const onDelete = async (order_id: string) => {
+
+
+      try {
+
+         await instace.delete(`order/?order_id=${order_id}`, {
+            headers: {
+               Authorization: "Bearer " + token,
+            },
+         })
+
+         const newToast: IToastList = {
+            id: String(toastList.length + 1),
+            backgroundCollor: "#5cb85c",
+            title: "Sucesso",
+            description: `Pedido removido com sucesso!`
+         }
+
+         setToastList([...toastList, newToast])
+      } catch (error) {
+
+         const newToast: IToastList = {
+            id: String(toastList.length + 1),
+            backgroundCollor: "#d9534f",
+            title: "Erro",
+            description: `Erro ao remover pedido!`
+         }
+
+         setToastList([...toastList, newToast])
+
+      }
+
+   }
+
    useEffect(() => {
 
       async function loadOrders() {
          const user_id = String(localStorage.getItem("user_id"))
-         console.log(user_id)
          const response = await instace.get(`order/?user_id=${user_id}`, {
             headers: {
                Authorization: "Bearer " + token,
@@ -48,7 +92,7 @@ export default function Orders() {
       loadOrders()
 
 
-   }, [])
+   }, [toastList])
 
    return (
       <div className={styles.mainContainer}>
@@ -61,9 +105,15 @@ export default function Orders() {
                         <p>Pedido #1</p>
                         <p className={styles.customerName}>{order.customer_name}</p>
                      </div>
-                     <div className={styles.orderStatus} style={{ backgroundColor: order.status == "opened" ? "#0FA958" : "#F24E1E" }}>
-                        {order.status == "opened" ? "Aberto" : "Fechado"}
+                     <div>
+                        <div className={styles.orderStatus} style={{ backgroundColor: order.status == "opened" ? "#0FA958" : "#F24E1E" }}>
+                           {order.status == "opened" ? "Aberto" : "Fechado"}
+                        </div>
+                        <div className={styles.deleteOrder} onClick={() => onDelete(order.id)}>
+                           <AiFillDelete className={styles.delete} size={20} />
+                        </div>
                      </div>
+
 
 
                   </div>
@@ -83,6 +133,7 @@ export default function Orders() {
                   value={decodeURIComponent(selectedOrderDetails)} />
             </div>
          </section>
+         <Toast toastList={toastList} setToast={setToastList} />
       </div>
    )
 }

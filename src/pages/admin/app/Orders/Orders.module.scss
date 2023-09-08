@@ -58,7 +58,7 @@
       }
 
       &:hover {
-         background-color: rgb(255, 220, 220);
+         background-color: rgb(197, 197, 197);
 
       }
 
@@ -110,6 +110,24 @@
       overflow-y: scroll;
    }
 
+}
+
+.deleteOrder {
+   margin: 2px;
+   border-radius: 5px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 40px;
+   width: 50px;
+
+   &:hover {
+      background-color: #000000;
+   }
+
+   .delete {
+      color: #f86e6e;
+   }
 }
 
 
