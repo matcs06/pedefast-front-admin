@@ -1,7 +1,8 @@
 import styles from "./Orders.module.scss"
 import instace from "../../../../api/hello"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 
+import ReactToPrint, { useReactToPrint } from "react-to-print"
 import { AiFillDelete } from "react-icons/ai"
 import Toast from "../../../../components/Toast/Toast";
 
@@ -27,6 +28,9 @@ export default function Orders() {
    const [selectedOrderDetails, setSelectedOrderDetails] = useState("")
 
    const [toastList, setToastList] = useState<IToastList[]>([])
+
+   const componentRef = useRef(null);;
+
 
    let token: any = ""
    if (typeof window !== 'undefined') {
@@ -121,17 +125,23 @@ export default function Orders() {
             </main>
          </section>
          <section className={styles.orderDetailContainer}>
+
             <div className={styles.orderDetailTextWrapper}>
                <label htmlFor="">Detalhes do Pedido</label>
                <textarea
-
+                  ref={componentRef}
                   className={styles.detailsTextArea}
                   cols={20}
                   rows={30}
                   readOnly
                   disabled
                   value={decodeURIComponent(selectedOrderDetails)} />
+               <ReactToPrint
+                  trigger={() => <button style={{ cursor: "pointer" }}>Imprimir pedido!</button>}
+                  content={() => componentRef.current}
+               />
             </div>
+
          </section>
          <Toast toastList={toastList} setToast={setToastList} />
       </div>
