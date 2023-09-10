@@ -50,6 +50,10 @@ interface IToastList {
    description: string;
 }
 
+interface IproductNames {
+   name: string
+}
+
 type openedFromType = "new" | "existent"
 
 export default function CreateProduct({ ...props }: ProductType) {
@@ -74,6 +78,9 @@ export default function CreateProduct({ ...props }: ProductType) {
       producEnabledCurrent = props.enabled
 
    }
+
+   const [producListApi, setProductListApi] = useState<IproductNames[]>([])
+
 
    const [productName, setProductName] = useState(productNameDefaultValue)
    const [productDescription, setProductDescription] = useState(productDescriptionDefaultValue)
@@ -155,6 +162,10 @@ export default function CreateProduct({ ...props }: ProductType) {
          //Caso seja criacao de um produto
          try {
 
+            if ((producListApi.filter((product) => product.name == productName).length) > 0) {
+               throw new Error("Produto com o mesmo nome já existe")
+            }
+
             formData.append("name", productName)
             formData.append("description", productDescription)
             formData.append("price", productPrice)
@@ -180,13 +191,12 @@ export default function CreateProduct({ ...props }: ProductType) {
 
             setToastList([...toastList, newToast])
 
-         } catch (error) {
-
+         } catch (error: any) {
             const newToast: IToastList = {
                id: String(toastList.length + 1),
                backgroundCollor: "#d9534f",
                title: "Erro",
-               description: `erro ao criar novo produto`
+               description: `Erro ao criar novo produto: ${error.message}`
             }
 
             setToastList([...toastList, newToast])
@@ -226,12 +236,12 @@ export default function CreateProduct({ ...props }: ProductType) {
             setToastList([...toastList, newToast])
 
 
-         } catch (error) {
+         } catch (error: any) {
             const newToast: IToastList = {
                id: String(toastList.length + 1),
                backgroundCollor: "#d9534f",
                title: "Erro",
-               description: `Erro ao atualizar produto`
+               description: `Erro ao atualizar produto: ${error.message}`
             }
 
             setToastList([...toastList, newToast])
@@ -334,6 +344,28 @@ export default function CreateProduct({ ...props }: ProductType) {
       setOptions(optionsAfterDeleted)
    }
  */
+
+   useEffect(() => {
+      async function loadProducts() {
+         try {
+            const response = await instace.get<IproductNames[]>(`products/?user_id=${user_id}`)
+            setProductListApi(response.data)
+
+         } catch (error) {
+            const newToast: IToastList = {
+               id: String(toastList.length + 1),
+               backgroundCollor: "#d9534f",
+               title: "Erro",
+               description: `erro ao carregar produtos`
+            }
+
+            setToastList([...toastList, newToast])
+         }
+      }
+
+      loadProducts()
+
+   }, [])
 
    return (
       <>
