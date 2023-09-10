@@ -137,4 +137,51 @@
    padding: 5%;
    font-family: "Inter";
    font-size: medium;
+
+
+}
+
+
+.printButton {
+   position: absolute;
+   padding: 5px;
+   height: 40px;
+   width: 140px;
+   bottom: 10px;
+   background-color: var(--laranja-main);
+   border: none;
+   border-radius: 8px;
+   transition: 0.2s;
+
+   &:hover {
+      background-color: #ea7070;
+   }
+}
+
+.whatsappButton {
+   position: absolute;
+   bottom: 4%;
+   right: 20%;
+   cursor: pointer;
+   transition: 0.2s;
+
+   &:hover {
+      width: 30px;
+      height: 30px;
+      color: #87f86e;
+   }
+}
+
+.location {
+   position: absolute;
+   bottom: 4%;
+   right: 15%;
+   cursor: pointer;
+   transition: 0.2s;
+
+   &:hover {
+      width: 30px;
+      height: 30px;
+      color: #87f86e;
+   }
 }

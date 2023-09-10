@@ -4,6 +4,8 @@ import { useEffect, useState, useRef } from "react"
 
 import ReactToPrint, { useReactToPrint } from "react-to-print"
 import { AiFillDelete } from "react-icons/ai"
+import { BsWhatsapp } from "react-icons/bs"
+import { TbMapSearch } from "react-icons/tb"
 import Toast from "../../../../components/Toast/Toast";
 
 interface IOrderInfo {
@@ -26,6 +28,8 @@ export default function Orders() {
 
    const [orders, setOrders] = useState<IOrderInfo[]>([])
    const [selectedOrderDetails, setSelectedOrderDetails] = useState("")
+   const [customerPhone, setCustomerPhone] = useState("")
+   const [googleLocationLink, setGoogleLocationLink] = useState("")
 
    const [toastList, setToastList] = useState<IToastList[]>([])
 
@@ -38,12 +42,32 @@ export default function Orders() {
    }
 
 
-   const OnOrdeDetail = (orderDetail: string) => {
+   const OnOrdeDetail = (orderDetail: string, customerPhone: string) => {
       if (orderDetail == null) {
          orderDetail = "Pedido Vazio"
       }
+      const separetedLink = orderDetail.split("link")
+      setSelectedOrderDetails(separetedLink[0])
+      setGoogleLocationLink(separetedLink[1])
 
-      setSelectedOrderDetails(orderDetail)
+      setCustomerPhone(customerPhone)
+   }
+
+
+   const onLocationClick = () => {
+      window.open(decodeURIComponent(googleLocationLink))
+
+   }
+
+   const onWhatsAppClick = () => {
+
+
+      const topMessage = "Olá, recebemos seu pedido, poderia confirmar se está tudo correto? \n\n"
+
+      const fullTopMessage = window.encodeURIComponent(topMessage)
+
+      const wpplink = `https://wa.me/+55${customerPhone}?text=${fullTopMessage + selectedOrderDetails}`
+      window.open(wpplink)
    }
 
 
@@ -104,7 +128,7 @@ export default function Orders() {
             <header><h3>Pedidos</h3></header>
             <main>
                {orders.map((order) => (
-                  <div className={styles.orderCardContainer} key={order.id} onClick={() => OnOrdeDetail(order.product)}>
+                  <div className={styles.orderCardContainer} key={order.id} onClick={() => OnOrdeDetail(order.product, order.customer_phone)}>
                      <div className={styles.CustomerAndOrderNumber}>
                         <p>Pedido #1</p>
                         <p className={styles.customerName}>{order.customer_name}</p>
@@ -137,11 +161,15 @@ export default function Orders() {
                   disabled
                   value={decodeURIComponent(selectedOrderDetails)} />
                <ReactToPrint
-                  trigger={() => <button style={{ cursor: "pointer" }}>Imprimir pedido!</button>}
+                  trigger={() => <button className={styles.printButton} style={{ cursor: "pointer" }}>Imprimir pedido!</button>}
                   content={() => componentRef.current}
                />
-            </div>
+               {googleLocationLink && (
+                  <TbMapSearch title="Localização do cliente" onClick={onLocationClick} className={styles.location} size={25} color="#DC6A6A" />
+               )}
+               <BsWhatsapp title="Confirmar pedido via WhatsApp" onClick={onWhatsAppClick} className={styles.whatsappButton} size={25} color="#0FA958" />
 
+            </div>
          </section>
          <Toast toastList={toastList} setToast={setToastList} />
       </div>
