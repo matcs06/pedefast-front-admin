@@ -130,7 +130,7 @@ export default function Orders() {
                {orders.map((order) => (
                   <div className={styles.orderCardContainer} key={order.id} onClick={() => OnOrdeDetail(order.product, order.customer_phone)}>
                      <div className={styles.CustomerAndOrderNumber}>
-                        <p>Pedido #1</p>
+                        <p>Pedido:  #{order.id.substring(30)}</p>
                         <p className={styles.customerName}>{order.customer_name}</p>
                      </div>
                      <div>
@@ -141,9 +141,6 @@ export default function Orders() {
                            <AiFillDelete className={styles.delete} size={20} />
                         </div>
                      </div>
-
-
-
                   </div>
                ))}
             </main>
