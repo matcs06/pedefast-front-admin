@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./OrderList.module.scss"
 import { AiFillDelete } from "react-icons/ai"
 
@@ -93,6 +93,10 @@ export default function OrderList({ setToastList, toastList, token, user_id, sel
       }
 
    }
+
+   useEffect(() => {
+
+   }, [toastList])
 
    return (
       <section className={styles.ordersListContainer}>
