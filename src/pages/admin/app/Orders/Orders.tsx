@@ -24,6 +24,8 @@ interface IToastList {
    description: string;
 }
 
+
+
 export default function Orders() {
 
    const [orders, setOrders] = useState<IOrderInfo[]>([])
@@ -32,6 +34,12 @@ export default function Orders() {
    const [googleLocationLink, setGoogleLocationLink] = useState("")
 
    const [toastList, setToastList] = useState<IToastList[]>([])
+   const [orderStatusList, setOrderStatusList] = useState<"opened" | "closed" | "ongoing" | "nothing">("opened")
+
+   const [selectedProductId, setSelectedProductId] = useState("")
+   const [selectedProductStatus, setSelectedProductStatus] = useState<"opened" | "closed" | "ongoing" | "nothing">("nothing")
+
+   const fielteredOrders = orders.filter((order) => order.status === orderStatusList)
 
    const componentRef = useRef(null);;
 
@@ -41,8 +49,48 @@ export default function Orders() {
       token = String(localStorage.getItem("token"))
    }
 
+   const onUpdateOrderStatus = async (changeOrderStatus: string) => {
+      try {
 
-   const OnOrdeDetail = (orderDetail: string, customerPhone: string) => {
+         await instace.patch(`/order`,
+            {
+               order_id: selectedProductId,
+               status: changeOrderStatus
+            },
+            {
+               headers: {
+                  Authorization: "Bearer " + token,
+               }
+            }
+         )
+
+         const newToast: IToastList = {
+            id: String(toastList.length + 1),
+            backgroundCollor: "#5cb85c",
+            title: "Sucesso",
+            description: `Pedido Atualizado com sucesso!`
+         }
+
+         setToastList([...toastList, newToast])
+      } catch (error) {
+
+         const newToast: IToastList = {
+            id: String(toastList.length + 1),
+            backgroundCollor: "#d9534f",
+            title: "Erro",
+            description: `Erro ao atualizar pedido!`
+         }
+
+         setToastList([...toastList, newToast])
+
+      }
+   }
+
+   const OnOrdeDetail = (orderDetail: string, customerPhone: string, order_id: string, order_status: any) => {
+
+      setSelectedProductId(order_id)
+      setSelectedProductStatus(order_status)
+
       if (orderDetail == null) {
          orderDetail = "Pedido Vazio"
       }
@@ -125,18 +173,23 @@ export default function Orders() {
    return (
       <div className={styles.mainContainer}>
          <section className={styles.ordersListContainer}>
-            <header><h3>Pedidos</h3></header>
+            <header className={styles.headerContainer}>
+               <h3>Pedidos</h3>
+               <ul>
+                  <li onClick={() => setOrderStatusList("opened")} style={{ background: orderStatusList == "opened" ? "rgb(231, 230, 229)" : "none", color: orderStatusList == "opened" ? "#514A4A" : "#fff" }}>Abertos</li>
+                  <li onClick={() => setOrderStatusList("ongoing")} style={{ background: orderStatusList == "ongoing" ? "rgb(231, 230, 229)" : "none", color: orderStatusList == "ongoing" ? "#514A4A" : "#fff" }}>Em Entrega</li>
+                  <li onClick={() => setOrderStatusList("closed")} style={{ background: orderStatusList == "closed" ? "rgb(231, 230, 229)" : "none", color: orderStatusList == "closed" ? "#514A4A" : "#fff" }}>Fechados</li>
+               </ul>
+            </header>
             <main>
-               {orders.map((order) => (
-                  <div className={styles.orderCardContainer} key={order.id} onClick={() => OnOrdeDetail(order.product, order.customer_phone)}>
+               {fielteredOrders.map((order) => (
+                  <div style={{ background: order.id == selectedProductId ? "aliceblue" : "rgb(231, 230, 229)" }} className={styles.orderCardContainer} key={order.id} onClick={() => OnOrdeDetail(order.product, order.customer_phone, order.id, order.status)}>
                      <div className={styles.CustomerAndOrderNumber}>
                         <p>Pedido:  #{order.id.substring(30)}</p>
                         <p className={styles.customerName}>{order.customer_name}</p>
                      </div>
                      <div>
-                        <div className={styles.orderStatus} style={{ backgroundColor: order.status == "opened" ? "#0FA958" : "#F24E1E" }}>
-                           {order.status == "opened" ? "Aberto" : "Fechado"}
-                        </div>
+
                         <div className={styles.deleteOrder} onClick={() => onDelete(order.id)}>
                            <AiFillDelete className={styles.delete} size={20} />
                         </div>
@@ -146,8 +199,19 @@ export default function Orders() {
             </main>
          </section>
          <section className={styles.orderDetailContainer}>
+            <div className={styles.changeOrderStatus}>
+               {selectedProductStatus == "opened" && (
+                  <button onClick={() => onUpdateOrderStatus("ongoing")}>Enviar para entrega</button>
 
+               )}
+
+               {selectedProductStatus !== "closed" && (
+                  <button onClick={() => onUpdateOrderStatus("closed")}>Fechar Pedido</button>
+
+               )}
+            </div>
             <div className={styles.orderDetailTextWrapper}>
+
                <label htmlFor="">Detalhes do Pedido</label>
                <textarea
                   ref={componentRef}

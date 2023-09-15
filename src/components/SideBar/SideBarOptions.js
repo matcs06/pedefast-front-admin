@@ -61,6 +61,8 @@ export const sideBarOptions = [
 
 
 function setSideBarWidth(toggled) {
+
+
    if (window.screen.width <= 650) {
       if (toggled) {
          document.documentElement.style.setProperty('--sidebar-width', "230px");

@@ -13,20 +13,18 @@ export default function SideBar({ defaultComponent }: any) {
 		full_name = String(localStorage.getItem("full_name"))
 	}
 
+
 	function handleClickTogle() {
 
-		setSideBarWidth(togleBar)
+		setSideBarWidth(!togleBar)
 		setTogleBar(!togleBar)
 	}
 
 	useEffect(() => {
-		if (window.screen.width <= 650) {
-
-			document.documentElement.style.setProperty('--sidebar-width', "230px");
-
-		} else {
-			document.documentElement.style.setProperty('--sidebar-width', "280px");
-		}
+		document.documentElement.style.setProperty('--sidebar-width', "50px");
+		document.documentElement.style.setProperty('--display-options', "none")
+		document.documentElement.style.setProperty('--set-togle-rotation', "180deg")
+		document.documentElement.style.setProperty('--justify-options', "center")
 	}, [])
 
 	function onClickSideBarOption(component: any) {
