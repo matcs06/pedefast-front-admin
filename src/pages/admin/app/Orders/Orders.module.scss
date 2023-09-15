@@ -2,6 +2,8 @@
    display: flex;
    flex-direction: row;
    width: 100%;
+   height: 100vh;
+   position: relative;
 }
 
 .ordersListContainer {
@@ -9,7 +11,7 @@
    height: 100vh;
    width: 40%;
    margin-left: 1%;
-   min-width: 290px;
+   min-width: 310px;
 
    main {
       width: 100%;
@@ -32,7 +34,7 @@
 
       .CustomerAndOrderNumber {
          font-weight: bolder;
-         margin-left: 5%;
+         margin-left: 10%;
       }
 
       .customerName {
@@ -57,40 +59,6 @@
 
 }
 
-.orderDetailContainer {
-   display: flex;
-   flex-direction: column;
-   width: 100%;
-   height: 90vh;
-   justify-content: center;
-   padding: 5%;
-   margin-top: 20px;
-
-   .orderDetail {
-
-      color: var(--preto-main);
-   }
-}
-
-
-.orderDetailTextWrapper {
-
-   width: 100%;
-   height: 90vh;
-   display: flex;
-   flex-direction: column;
-
-   label {
-      color: black;
-   }
-
-   textarea {
-      resize: none;
-      border: none;
-      overflow-y: scroll;
-   }
-
-}
 
 .deleteOrder {
    margin: 2px;
@@ -107,62 +75,6 @@
 
    .delete {
       color: #f86e6e;
-   }
-}
-
-
-.detailsTextArea {
-   background-color: #f8f8f8;
-   color: #222222;
-   padding: 5%;
-   font-family: "Inter";
-   font-size: medium;
-
-
-}
-
-
-.printButton {
-   position: absolute;
-   padding: 5px;
-   height: 40px;
-   width: 140px;
-   bottom: 10px;
-   background-color: var(--laranja-main);
-   border: none;
-   border-radius: 8px;
-   transition: 0.2s;
-
-   &:hover {
-      background-color: #ea7070;
-   }
-}
-
-.whatsappButton {
-   position: absolute;
-   bottom: 3%;
-   right: 20%;
-   cursor: pointer;
-   transition: 0.2s;
-
-   &:hover {
-      width: 30px;
-      height: 30px;
-      color: #87f86e;
-   }
-}
-
-.location {
-   position: absolute;
-   bottom: 3%;
-   right: 15%;
-   cursor: pointer;
-   transition: 0.2s;
-
-   &:hover {
-      width: 30px;
-      height: 30px;
-      color: #87f86e;
    }
 }
 
@@ -203,16 +115,18 @@
 
 }
 
-.changeOrderStatus {
-   display: flex;
-   justify-content: space-between;
-   width: 30%;
-   margin-top: 5%;
-   margin-bottom: 2%;
+.sideDetailContainer {
+   width: 80%;
+   padding: 20px 0 10px 0;
+}
 
-   button {
-      height: 30px;
-      padding: 5px;
-      cursor: pointer;
+@media(max-width: 730px) {
+
+   .sideDetailContainer {
+      display: none;
+   }
+
+   .ordersListContainer {
+      width: 100%;
    }
 }

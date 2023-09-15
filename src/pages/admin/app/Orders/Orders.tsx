@@ -1,12 +1,10 @@
 import styles from "./Orders.module.scss"
 import instace from "../../../../api/hello"
-import { useEffect, useState, useRef } from "react"
-
-import ReactToPrint, { useReactToPrint } from "react-to-print"
+import { useEffect, useState } from "react"
 import { AiFillDelete } from "react-icons/ai"
-import { BsWhatsapp } from "react-icons/bs"
-import { TbMapSearch } from "react-icons/tb"
+
 import Toast from "../../../../components/Toast/Toast";
+import OrderDetail from "../../../../components/OrderDetails/OrderDetails"
 
 interface IOrderInfo {
    customer_name: string;
@@ -40,9 +38,6 @@ export default function Orders() {
    const [selectedProductStatus, setSelectedProductStatus] = useState<"opened" | "closed" | "ongoing" | "nothing">("nothing")
 
    const fielteredOrders = orders.filter((order) => order.status === orderStatusList)
-
-   const componentRef = useRef(null);;
-
 
    let token: any = ""
    if (typeof window !== 'undefined') {
@@ -198,40 +193,15 @@ export default function Orders() {
                ))}
             </main>
          </section>
-         <section className={styles.orderDetailContainer}>
-            <div className={styles.changeOrderStatus}>
-               {selectedProductStatus == "opened" && (
-                  <button onClick={() => onUpdateOrderStatus("ongoing")}>Enviar para entrega</button>
+         <div className={styles.sideDetailContainer}>
+            <OrderDetail googleLocationLink={googleLocationLink}
+               onLocationClick={onLocationClick}
+               onUpdateOrderStatus={onUpdateOrderStatus}
+               onWhatsAppClick={onWhatsAppClick}
+               selectedOrderDetails={selectedOrderDetails}
+               selectedProductStatus={selectedProductStatus} />
+         </div>
 
-               )}
-
-               {selectedProductStatus !== "closed" && (
-                  <button onClick={() => onUpdateOrderStatus("closed")}>Fechar Pedido</button>
-
-               )}
-            </div>
-            <div className={styles.orderDetailTextWrapper}>
-
-               <label htmlFor="">Detalhes do Pedido</label>
-               <textarea
-                  ref={componentRef}
-                  className={styles.detailsTextArea}
-                  cols={20}
-                  rows={30}
-                  readOnly
-                  disabled
-                  value={decodeURIComponent(selectedOrderDetails)} />
-               <ReactToPrint
-                  trigger={() => <button className={styles.printButton} style={{ cursor: "pointer" }}>Imprimir pedido!</button>}
-                  content={() => componentRef.current}
-               />
-               {googleLocationLink && (
-                  <TbMapSearch title="Localização do cliente" onClick={onLocationClick} className={styles.location} size={25} color="#DC6A6A" />
-               )}
-               <BsWhatsapp title="Confirmar pedido via WhatsApp" onClick={onWhatsAppClick} className={styles.whatsappButton} size={25} color="#0FA958" />
-
-            </div>
-         </section>
          <Toast toastList={toastList} setToast={setToastList} />
       </div>
    )
