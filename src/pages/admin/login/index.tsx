@@ -29,43 +29,33 @@ export default function Login() {
 
    const [userName, setUserName] = useState()
    const [password, setPassword] = useState()
-   const [_, setUserInfo] = useUserLogin()
    const [toastList, setToastList] = useState<IToastList[]>([])
 
    async function onLoginClick() {
 
       try {
-         const response = await instace.post<SessionData>("sessions", {
+         await instace.post<SessionData>("sessions", {
             username: userName,
             password: password
+         }).then((response) => {
+            console.log(response.data.user)
+
+            localStorage.setItem("username", response.data.user.username)
+            localStorage.setItem("user_id", response.data.user.user_id)
+            localStorage.setItem("token", response.data.token)
+            localStorage.setItem("full_name", response.data.user.name)
+
          })
 
-         localStorage.setItem("username", response.data.user.username)
-         localStorage.setItem("user_id", response.data.user.user_id)
-         localStorage.setItem("token", response.data.token)
-         localStorage.setItem("full_name", response.data.user.name)
-
-
-
-         const userInfoObject = {
-            username: response.data.user.username,
-            user_id: response.data.user.user_id,
-            token: response.data.token
-
-         }
-
-         setUserInfo(userInfoObject)
-
-
-
          window.location.pathname = ("/admin/app/")
+         console.log(localStorage.getItem("username"))
 
       } catch (error) {
          const newToast: IToastList = {
             id: String(toastList.length + 1),
             backgroundCollor: "#d9534f",
             title: "Erro",
-            description: `Erro ao criar usuário informacoes!`
+            description: `Erro ao fazer login!`
          }
 
          setToastList([...toastList, newToast])

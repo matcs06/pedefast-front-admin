@@ -3,16 +3,14 @@ import { sideBarOptions } from "./SideBarOptions"
 import { IoIosArrowDropleft } from "react-icons/io"
 import { useEffect, useState } from "react"
 import { setSideBarWidth } from "./SideBarOptions"
+
+import { getItem } from "../../utils/localStorage"
+
 export default function SideBar({ defaultComponent }: any) {
 
 	const [togleBar, setTogleBar] = useState(false)
 	const [renderedComponent, setRenderedComponent] = useState(defaultComponent)
-	let full_name: any = ""
-	if (typeof window !== 'undefined') {
-
-		full_name = String(localStorage.getItem("full_name"))
-	}
-
+	let full_name = getItem("full_name")
 
 	function handleClickTogle() {
 
@@ -32,10 +30,8 @@ export default function SideBar({ defaultComponent }: any) {
 	}
 
 	return (
-		<div className={styles.screenContainer}>
+		<div className={styles.screenContainer} >
 			<div className={styles.sidebarContainer}>
-
-
 				<div className={styles.header}>
 					<p>Olá, {full_name}!</p>
 					<div className={styles.togle} onClick={handleClickTogle}>

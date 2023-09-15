@@ -35,9 +35,6 @@ export default function OrderList({ setToastList, toastList, token, user_id, sel
 
    const [orderStatusList, setOrderStatusList] = useState<"opened" | "closed" | "ongoing" | "nothing">("opened")
 
-
-
-
    const fetchOrders = async () => {
       try {
          const response = await instace.get<IOrderInfo[]>(`order/?user_id=${user_id}`, {
@@ -93,10 +90,6 @@ export default function OrderList({ setToastList, toastList, token, user_id, sel
       }
 
    }
-
-   useEffect(() => {
-
-   }, [toastList])
 
    return (
       <section className={styles.ordersListContainer}>

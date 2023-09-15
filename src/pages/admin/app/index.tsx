@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import SideBar from "../../../components/SideBar/SideBar"
 import ProductList from "./Product/ProductList/ProductList"
-import { verify, decode } from "jsonwebtoken";
-import Login from "../login";
+
 
 interface IPayload {
    exp: string;
@@ -12,9 +11,7 @@ export default function AdminApp() {
 
    const [loadApp, setLoadApp] = useState(true)
    let token: any = ""
-   if (typeof window !== 'undefined') {
-      token = String(localStorage.getItem("token"))
-   }
+
 
    function isTokenExpired(token: string) {
       const payloadBase64 = token.split('.')[1];

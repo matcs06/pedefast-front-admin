@@ -45,10 +45,20 @@
 
    }
 
+}
 
+.deleteOrder {
+   height: 40px;
+   width: 40px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 3px;
 
-
-
+   &:hover {
+      background-color: rgb(210, 208, 208);
+      color: rgb(252, 94, 94);
+   }
 }
 
 .headerContainer {

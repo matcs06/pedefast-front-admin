@@ -1,7 +1,6 @@
 import styles from "./Orders.module.scss"
 import instace from "../../../../api/hello"
-import { useEffect, useState } from "react"
-import { AiFillDelete } from "react-icons/ai"
+import { useState } from "react"
 
 import OrderList from "../../../../components/OrderList/OrderList"
 
