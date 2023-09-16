@@ -34,6 +34,15 @@ interface IOrderList {
 export default function OrderList({ setToastList, toastList, token, user_id, selectedProductId, OnOrdeDetail }: IOrderList) {
 
    const [orderStatusList, setOrderStatusList] = useState<"opened" | "closed" | "ongoing" | "nothing">("opened")
+   let currentOrders: IOrderInfo[];
+
+   /*   const audioPlayer = useRef(null);
+  
+  
+     const displayNotification = () => {
+  
+        audioPlayer.current.play()
+     } */
 
    const fetchOrders = async () => {
       try {
@@ -42,17 +51,22 @@ export default function OrderList({ setToastList, toastList, token, user_id, sel
                Authorization: "Bearer " + token,
             },
          })
+
+         /*     if (currentOrders.length > response.data.length) {
+                displayNotification()
+             }
+    
+             currentOrders = response.data */
          return response.data
+
       } catch (error) {
 
       }
 
    }
-
-   const { data: orders, isLoading, isError } = useQuery("orders", fetchOrders, {
+   const { data: orders, isLoading, isError, } = useQuery("orders", fetchOrders, {
       refetchInterval: 5000,
    })
-
 
    const fielteredOrders = orders && orders.filter((order) => order.status === orderStatusList)
 
