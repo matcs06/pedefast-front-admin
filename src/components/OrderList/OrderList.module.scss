@@ -23,6 +23,7 @@
       cursor: pointer;
       color: var(--preto-main);
       transition: 0.2s;
+      width: 100%;
 
       .CustomerAndOrderNumber {
          font-weight: bolder;
@@ -48,12 +49,17 @@
 }
 
 .deleteOrder {
+   position: absolute;
    height: 40px;
    width: 40px;
    display: flex;
-   align-items: center;
    justify-content: center;
+   align-items: center;
    border-radius: 3px;
+   right: 15px;
+   top: 30px;
+   color: rgb(226, 80, 54);
+   cursor: pointer;
 
    &:hover {
       background-color: rgb(210, 208, 208);

@@ -36,13 +36,15 @@ interface IOrderList {
 export default function OrderList({ setToastList, toastList, token, user_id, selectedProductId, OnOrdeDetail }: IOrderList) {
 
    const [orderStatusList, setOrderStatusList] = useState<"opened" | "closed" | "ongoing" | "nothing">("opened")
-   let currentOrders: IOrderInfo[];
+   let currentOrders: IOrderInfo[] = [];
 
-   const audioPlayer = useRef(null);
+   const audioPlayer = useRef<HTMLAudioElement>(null);
 
    const displayNotification = () => {
+      if (audioPlayer != null) {
+         audioPlayer.current?.play()
+      }
 
-      audioPlayer.current.play()
    }
 
    const fetchOrders = async () => {
@@ -52,11 +54,13 @@ export default function OrderList({ setToastList, toastList, token, user_id, sel
                Authorization: "Bearer " + token,
             },
          })
-         /*    if (currentOrders.length > response.data.length) {
-   
-            } */
+         if (currentOrders.length > response.data.length) {
+            displayNotification()
+
+         }
          currentOrders = response.data
          return response.data
+
 
       } catch (error) {
 
@@ -71,7 +75,6 @@ export default function OrderList({ setToastList, toastList, token, user_id, sel
 
 
    const onDelete = async (order_id: string) => {
-
 
       try {
 
@@ -118,18 +121,18 @@ export default function OrderList({ setToastList, toastList, token, user_id, sel
          </header>
          <main>
             {fielteredOrders && fielteredOrders.map((order) => (
-               <div style={{ background: order.id == selectedProductId ? "aliceblue" : "rgb(231, 230, 229)" }} className={styles.orderCardContainer} key={order.id} onClick={() => OnOrdeDetail(order.product, order.customer_phone, order.id, order.status)}>
-                  <div className={styles.CustomerAndOrderNumber}>
-                     <p>Pedido:  #{order.id.substring(30)}</p>
-                     <p className={styles.customerName}>{order.customer_name}</p>
-                  </div>
-                  <div>
-
-                     <div className={styles.deleteOrder} onClick={() => onDelete(order.id)}>
-                        <AiFillDelete className={styles.delete} size={20} />
+               <div style={{ display: "flex", position: "relative", width: "100%" }}>
+                  <div style={{ background: order.id == selectedProductId ? "aliceblue" : "rgb(231, 230, 229)" }} className={styles.orderCardContainer} key={order.id} onClick={() => OnOrdeDetail(order.product, order.customer_phone, order.id, order.status)}>
+                     <div className={styles.CustomerAndOrderNumber}>
+                        <p>Pedido:  #{order.id.substring(30)}</p>
+                        <p className={styles.customerName}>{order.customer_name}</p>
                      </div>
                   </div>
+                  <div className={styles.deleteOrder} onClick={() => onDelete(order.id)}>
+                     <AiFillDelete className={styles.delete} size={20} />
+                  </div>
                </div>
+
             ))}
          </main>
       </section>
