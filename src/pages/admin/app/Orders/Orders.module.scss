@@ -21,4 +21,49 @@
    .ordersListContainer {
       width: 100%;
    }
+
+   @keyframes entrada {
+      0% {
+         scale: 10%;
+
+      }
+
+      100% {
+         scale: 90%;
+
+      }
+
+   }
+
+   .smallScreenDetailContainer {
+      position: absolute;
+      z-index: 5px;
+      top: 10px;
+      border-radius: 8px;
+      width: 90%;
+      height: 90vh;
+      background-color: aliceblue;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 5%;
+      animation: entrada 0.2s ease-in-out;
+      padding-top: 20px;
+
+      .exit {
+         position: absolute;
+         top: 10px;
+         right: 10px;
+         cursor: pointer;
+         background: rgb(243, 140, 140);
+         border-radius: 50%;
+         animation: 0.2s ease-in-out;
+
+         &:hover {
+            background: rgb(248, 95, 95);
+
+         }
+      }
+
+   }
 }

@@ -98,3 +98,35 @@
       color: #87f86e;
    }
 }
+
+@media(max-width: 730px) {
+
+   .location {
+      position: absolute;
+      bottom: 3%;
+      right: 10%;
+      cursor: pointer;
+      transition: 0.2s;
+
+      &:hover {
+         width: 30px;
+         height: 30px;
+         color: #87f86e;
+      }
+   }
+
+   .whatsappButton {
+      position: absolute;
+      bottom: 3%;
+      right: 25%;
+      cursor: pointer;
+      transition: 0.2s;
+
+      &:hover {
+         width: 30px;
+         height: 30px;
+         color: #87f86e;
+      }
+   }
+
+}

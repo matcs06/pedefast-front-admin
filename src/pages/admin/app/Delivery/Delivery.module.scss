@@ -207,3 +207,10 @@
    justify-content: center;
    background: rgba(0, 0, 0, 0.89);
 }
+
+@media(max-width: 730px) {
+   .mainContainer {
+      padding-top: 5%;
+   }
+
+}
