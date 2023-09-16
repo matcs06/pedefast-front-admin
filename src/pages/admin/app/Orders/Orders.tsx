@@ -37,7 +37,12 @@ export default function Orders() {
    const [selectedProductId, setSelectedProductId] = useState("")
    const [selectedProductStatus, setSelectedProductStatus] = useState<"opened" | "closed" | "ongoing" | "nothing">("nothing")
 
-   const [isPhoneSize, setIsPhoneSize] = useState(window.innerWidth <= 730 ? true : false)
+   let width = 740;
+   if (typeof globalThis?.window?.innerWidth !== "undefined") {
+      width = window.innerWidth;
+   }
+
+   const [isPhoneSize, setIsPhoneSize] = useState(width <= 730 ? true : false)
    const [openPhoneDetailWindow, setOpenPhoneDetailWindow] = useState(false)
 
    const openPhoneDetail = isPhoneSize == true && openPhoneDetailWindow == true ? true : false

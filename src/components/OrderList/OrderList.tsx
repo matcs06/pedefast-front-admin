@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./OrderList.module.scss"
 import { AiFillDelete } from "react-icons/ai"
 
 import instace from "../../api/hello";
 import { useQuery } from "react-query";
+
+const AudioNotification = require("./notificationSoundapp.mp3")
 
 interface IToastList {
    id: string;
@@ -36,13 +38,12 @@ export default function OrderList({ setToastList, toastList, token, user_id, sel
    const [orderStatusList, setOrderStatusList] = useState<"opened" | "closed" | "ongoing" | "nothing">("opened")
    let currentOrders: IOrderInfo[];
 
-   /*   const audioPlayer = useRef(null);
-  
-  
-     const displayNotification = () => {
-  
-        audioPlayer.current.play()
-     } */
+   const audioPlayer = useRef(null);
+
+   const displayNotification = () => {
+
+      audioPlayer.current.play()
+   }
 
    const fetchOrders = async () => {
       try {
@@ -51,12 +52,10 @@ export default function OrderList({ setToastList, toastList, token, user_id, sel
                Authorization: "Bearer " + token,
             },
          })
-
-         /*     if (currentOrders.length > response.data.length) {
-                displayNotification()
-             }
-    
-             currentOrders = response.data */
+         /*    if (currentOrders.length > response.data.length) {
+   
+            } */
+         currentOrders = response.data
          return response.data
 
       } catch (error) {
@@ -107,6 +106,8 @@ export default function OrderList({ setToastList, toastList, token, user_id, sel
 
    return (
       <section className={styles.ordersListContainer}>
+         <audio ref={audioPlayer} src={AudioNotification} />
+
          <header className={styles.headerContainer}>
             <h3>Pedidos</h3>
             <ul>
