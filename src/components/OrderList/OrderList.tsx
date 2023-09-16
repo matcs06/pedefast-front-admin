@@ -4,8 +4,7 @@ import { AiFillDelete } from "react-icons/ai"
 
 import instace from "../../api/hello";
 import { useQuery } from "react-query";
-
-const AudioNotification = require("./notificationSoundapp.mp3")
+import { useCurrentOrders } from "../../context/Context";
 
 interface IToastList {
    id: string;
@@ -36,11 +35,11 @@ interface IOrderList {
 export default function OrderList({ setToastList, toastList, token, user_id, selectedProductId, OnOrdeDetail }: IOrderList) {
 
    const [orderStatusList, setOrderStatusList] = useState<"opened" | "closed" | "ongoing" | "nothing">("opened")
-   let currentOrders: IOrderInfo[] = [];
+   const [currentOrders, setCurrentOrders] = useCurrentOrders()
 
    const audioPlayer = useRef<HTMLAudioElement>(null);
 
-   const displayNotification = () => {
+   const playNotification = () => {
       if (audioPlayer != null) {
          audioPlayer.current?.play()
       }
@@ -54,11 +53,12 @@ export default function OrderList({ setToastList, toastList, token, user_id, sel
                Authorization: "Bearer " + token,
             },
          })
-         if (currentOrders.length > response.data.length) {
-            displayNotification()
 
+         if (currentOrders.length < response.data.length) {
+            playNotification()
          }
-         currentOrders = response.data
+
+         setCurrentOrders(response.data)
          return response.data
 
 
@@ -67,6 +67,8 @@ export default function OrderList({ setToastList, toastList, token, user_id, sel
       }
 
    }
+
+
    const { data: orders, isLoading, isError, } = useQuery("orders", fetchOrders, {
       refetchInterval: 5000,
    })
@@ -109,7 +111,7 @@ export default function OrderList({ setToastList, toastList, token, user_id, sel
 
    return (
       <section className={styles.ordersListContainer}>
-         <audio ref={audioPlayer} src={AudioNotification} />
+         <audio ref={audioPlayer} src="/notificationSoundapp.mp3" />
 
          <header className={styles.headerContainer}>
             <h3>Pedidos</h3>
